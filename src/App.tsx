@@ -2,6 +2,7 @@ import React, {useState, useEffect, ChangeEvent} from 'react';
 import './App.css';
 import {Display} from './counter/Display';
 import {Button} from './components/Button';
+import {SetInput} from "./setting/SetInput";
 
 function App() {
     const [maxValue, setMaxValue] = useState<number>(5);
@@ -31,7 +32,7 @@ function App() {
     const changeMinValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const newValue = +e.currentTarget.value;
         setMinValue(newValue);
-        setInvalidMinValue(newValue <= -1);
+        setInvalidMinValue(newValue < 0);
     };
 
     const isCorrectValue = maxValue > 0 && minValue >= 0 && maxValue > minValue;
@@ -45,37 +46,34 @@ function App() {
 
     return (
         <div className="App">
-            <div className="input-wrapper">
-                <div>max value:</div>
-                <input
-                    className="input"
-                    type="number"
-                    value={maxValue}
-                    onChange={changeMaxValueHandler}
-                />
-                <input
-                    className="input"
-                    type="number"
-                    value={minValue}
-                    onChange={changeMinValueHandler}
-                />
-                <Button
-                    name="set"
-                    callback={setLimitsHandler}
-                    disabled={!isCorrectValue}
-                />
+
+            <div className="counter-wrapper">
+                    <div>max value:</div>
+                    <SetInput value={maxValue} onChange={changeMaxValueHandler}/>
+                    <div>start value:</div>
+                    <SetInput value={minValue} onChange={changeMinValueHandler}/>
+
+                    <div className="button-wrapper">
+                        <Button
+                            name="set"
+                            callback={setLimitsHandler}
+                            disabled={minValue < 0}
+                        />
+                </div>
             </div>
 
-            <div>
-                <Display count={count || minValue} maxNum={maxValue} minNum={minValue}/>
-                <div className="button-wrapper">
-                    <Button
-                        callback={incHandler}
-                        name="inc"
-                        disabled={count === maxValue}
-                    />
-                    <Button callback={resetHandler} name="reset"/>
-                </div>
+
+            <div className="counter-wrapper">
+                    <Display count={count || minValue} maxNum={maxValue} minNum={minValue}/>
+
+                    <div className="button-wrapper">
+                        <Button
+                            callback={incHandler}
+                            name="inc"
+                            disabled={count === maxValue}
+                        />
+                        <Button callback={resetHandler} name="reset"/>
+                    </div>
             </div>
         </div>
     );

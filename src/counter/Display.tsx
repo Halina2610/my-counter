@@ -8,14 +8,13 @@ interface DisplayProps {
 
 export const Display: React.FC<DisplayProps> = ({ count, maxNum, minNum }) => {
     const isRed = { color: count === maxNum ? '#ab1717' : 'inherit' };
-    const value = count <= -1 ? "Недопустимое значение" : String(minNum);
+    const value = count < 0 ? "Enter values and press 'set'" : String(minNum);
 
     return (
         <div className="display count">
-            <div style={isRed}>
-                {count}
-                {count <= -1 && <p style={{ fontSize: '20px' } }>{value}</p>}
-            </div>
+            {count < 0 && (
+                <p style={{ fontSize: '30px', color: '#ab1717'}}>{value}</p>
+            )}
         </div>
     );
 };
