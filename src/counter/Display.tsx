@@ -12,9 +12,10 @@ export const Display: React.FC<DisplayProps> = ({ count, maxNum, minNum }) => {
 
     return (
         <div className="display count">
-            {count < 0 && (
-                <p style={{ fontSize: '30px', color: '#ab1717'}}>{value}</p>
-            )}
+            <div style={isRed}>
+                {count}
+                {count < 0 && <p style={{ fontSize: '20px', color: '#ab1717' } }>{value}</p>}
+            </div>
         </div>
     );
 };
