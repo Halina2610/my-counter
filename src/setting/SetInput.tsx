@@ -9,7 +9,7 @@ type SetInputPropsType = {
 export const SetInput = (props: SetInputPropsType) => {
 
     const isRed = {
-        border: props.value < 0 ? '3px solid #ab1717' : '3px solid #0e4f4f',
+        border: props.value < 0 ? '5px solid #ab1717' : '3px solid #0e4f4f',
         backgroundColor: props.value < 0 ? '#f696c6' : '#6ae0e0'
     };
 
