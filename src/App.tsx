@@ -56,6 +56,7 @@ function App() {
         if (isCorrectValue) {
             const limits = [maxValue, minValue];
             localStorage.setItem('counterLimits', JSON.stringify(limits));
+            setState(prevState => ({ ...prevState, count: minValue }));
         }
     }, [isCorrectValue, maxValue, minValue]);
 
@@ -68,12 +69,12 @@ function App() {
                 <SetInput value={minValue} onChange={changeMinValueHandler} />
 
                 <div className="button-wrapper">
-                    <Button name="set" callback={setLimitsHandler} disabled={minValue < 0} />
+                    <Button name="set" callback={setLimitsHandler} disabled={minValue < 0 || minValue >= maxValue} />
                 </div>
             </div>
 
             <div className="counter-wrapper">
-                <Display count={count || minValue} maxNum={maxValue} minNum={minValue} />
+                <Display count={count} maxNum={maxValue} minNum={minValue} />
 
                 <div className="button-wrapper">
                     <Button callback={incHandler} name="inc" disabled={count === maxValue || count < 0} />
