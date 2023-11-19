@@ -1,17 +1,17 @@
 import React from 'react';
+
 type ButtonPropsType = {
     name: string
     callback: ()=> void
-    disabled?: boolean
-
-
+    disabled: boolean
 }
-export const Button = (props: ButtonPropsType) => {
-    const buttonStyle = props.disabled ? 'button-disabled' : 'button';
+
+export const Button: React.FC<ButtonPropsType> = ({name,callback, disabled}) => {
+    const buttonStyle = disabled ? 'button-disabled' : 'button';
 
     return (
         <div className={"buttons"}>
-            <button onClick={props.callback} className={buttonStyle}  disabled={props.disabled}>{props.name}</button>
+            <button onClick={callback} className={buttonStyle}  disabled={disabled}>{name}</button>
         </div>
     );
 };
