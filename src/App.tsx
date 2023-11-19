@@ -40,16 +40,18 @@ function App() {
 
     const incHandler = useCallback(() => {
         if (count < maxValue) {
-            setState(newState => ({
-                ...newState, count: newState.count + 1
+            setState((newState) => ({
+                ...newState,
+                count: newState.count + 1
             }));
         }
     }, [count, maxValue]);
 
 
     const resetHandler = useCallback(() => {
-        setState(newState => ({
-            ...newState, count: newState.minValue
+        setState((newState) => ({
+            ...newState,
+            count: newState.minValue
         }));
     }, [minValue]);
 
@@ -94,9 +96,9 @@ function App() {
         <div className="App">
             <div className="counter-wrapper">
                 <div>max value:</div>
-                <SetInput value={maxValue} onChange={changeMaxValueHandler}/>
+                <SetInput value={maxValue} onChange={changeMaxValueHandler} maxValue={maxValue} minValue={minValue} />
                 <div>start value:</div>
-                <SetInput value={minValue} onChange={changeMinValueHandler}/>
+                <SetInput value={minValue} onChange={changeMinValueHandler} maxValue={maxValue} minValue={minValue} />
 
                 <div className="button-wrapper">
                     <Button name="set" callback={setLimitsHandler} disabled={!isCorrectValue}/>
@@ -107,10 +109,12 @@ function App() {
                 <Display count={count} maxNum={maxValue} minNum={minValue}/>
 
                 <div className="button-wrapper">
-                    <Button callback={incHandler} name="inc"
-                            disabled={!isCorrectValue}/>
-                    <Button callback={resetHandler} name="reset"
-                            disabled={!isCorrectValue}/>
+                    <Button callback={incHandler}
+                            name="inc"
+                            disabled={!isCorrectValue || count === maxValue}/>
+                    <Button callback={resetHandler}
+                            name="reset"
+                            disabled={!isCorrectValue || count === minValue}/>
                 </div>
             </div>
         </div>
